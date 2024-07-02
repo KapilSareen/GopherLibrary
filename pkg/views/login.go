@@ -13,3 +13,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+
+func Admin(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/admin" {
+		w.Header().Set("Cache-Control", "no-store, no-cache, must-revalidate, private")
+        w.Header().Set("Pragma", "no-cache")
+        w.Header().Set("Expires", "0")
+		http.ServeFile(w, r, "templates/admin.html")
+	}
+}

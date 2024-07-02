@@ -32,13 +32,14 @@ func Login(name string, password string) (types.User, error) {
 	return user, nil
 }
 
-func IsAdmin(user types.User) bool {
+func IsAdmin(name string) bool {
 	var IsAdmin bool
-	if err := db.QueryRow("SELECT IsAdmin from users where name = ? and password = ?",
-		user.Name, user.Password).Scan(&IsAdmin); err != nil {
+	if err := db.QueryRow("SELECT IsAdmin from users where name = ?",
+		name).Scan(&IsAdmin); err != nil {
 		fmt.Print(err)
 		return IsAdmin
 	}
 	db.Close()
 	return IsAdmin
 }
+

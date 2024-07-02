@@ -19,4 +19,5 @@ func AddBook(book types.Book) {
 	}
 	log.Printf("inserted id: %d", id)
 
+	db.Close()
 }

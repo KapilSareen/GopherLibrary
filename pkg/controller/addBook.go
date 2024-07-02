@@ -1,20 +1,32 @@
 package controller
-import(
-"fmt"
-"time"
-"github.com/KapilSareen/go-project/pkg/models"
-"github.com/KapilSareen/go-project/pkg/types"
 
+import (
+	"fmt"
+	"github.com/KapilSareen/go-project/pkg/models"
+	"github.com/KapilSareen/go-project/pkg/types"
+	"net/http"
+	"strconv"
+	"time"
 )
-func AddBook(){
-models.Connect()
-book:=types.Book{
-	Name:      "TEST-add",
-	Author:    "TEST-auth",
-	Price:     69.69,
-	OwnedFrom: time.Now().String(),
-	IsAvail:   true,     
-}
-fmt.Print(book)
-models.AddBook(book)
+
+func AddBook(w http.ResponseWriter, r *http.Request) {
+	models.Connect()
+
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
+		return
+	}
+
+	name := r.FormValue("name")
+	author := r.FormValue("author")
+	price, _ := strconv.ParseFloat(r.FormValue("price"), 32)
+	book := types.Book{
+		Name:      name,
+		Author:    author,
+		Price:     float32(price),
+		OwnedFrom: time.Now().String(),
+		IsAvail:   true,
+	}
+
+	models.AddBook(book)
 }
