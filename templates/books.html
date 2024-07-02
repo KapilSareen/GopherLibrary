@@ -6,11 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-{{range .}}
-
-    {{ .Name }} by {{ .Author}} 
-
-{{ end }}
+    <table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{range .}}
+        <tr>
+            <td>{{ .Name }}</td>
+            <td>{{ .Author }}</td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 package models
 
-import(
-"github.com/KapilSareen/go-project/pkg/types"
+import (
+	"github.com/KapilSareen/go-project/pkg/types"
 )
 
 func ListBooks()([]types.Book, error) {
@@ -28,13 +28,15 @@ func ListBooks()([]types.Book, error) {
     return books, nil
 }
 
-func SearchBook(name string)(types.Book,  error){
+func SearchBook(name string)([]types.Book,  error){
     var book types.Book;
-    if err := db.QueryRow("SELECT * from book where name = ? or author=?",
-       name,name).Scan(&book.ID, &book.Name, &book.Author,
+    var books []types.Book
+    if err := db.QueryRow("SELECT * from book where name = ?",
+       name).Scan(&book.ID, &book.Name, &book.Author,
             &book.OwnedFrom, &book.IsAvail, &book.Price); err != nil {
-            return book, err
-        }
-        return book, nil
-    
+                return books, err
+            }
+            books=append(books, book)
+            db.Close()
+            return books, nil
 }
