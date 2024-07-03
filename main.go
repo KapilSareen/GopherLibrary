@@ -9,5 +9,4 @@ import (
     fmt.Println("Loading...")
 	fmt.Println("Listening on http://localhost:8001/")
 	api.Start()
-  
 }

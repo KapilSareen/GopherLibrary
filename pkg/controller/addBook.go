@@ -28,5 +28,11 @@ func AddBook(w http.ResponseWriter, r *http.Request) {
 		IsAvail:   true,
 	}
 
-	models.AddBook(book)
+	err:=models.AddBook(book)
+	if(err!=nil){
+		fmt.Fprint(w,"Book already exists")
+		return
+	}
+
+	http.Redirect(w, r, "/books", http.StatusSeeOther)
 }

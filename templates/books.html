@@ -1,28 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
 
-    <table border="1">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Author</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{range .}}
-        <tr>
-            <td>{{ .Name }}</td>
-            <td>{{ .Author }}</td>
-        </tr>
-        {{ end }}
-    </tbody>
-</table>
-<button onclick="location.href='/logout'">Logout</button>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Ubuntu Sans", sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background-image: url(https://i.pinimg.com/564x/5d/2e/7f/5d2e7f3bab992bde80c9cb9e6f6cc520.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 -35px;
+            background-clip: border-box;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            align-items: baseline;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            margin: auto;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #5381dd;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            min-height: 200px;
+        }
+
+        form label {
+            display: block;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button[type="submit"],
+        button {
+            padding: 7px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        table th {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #007BFF;
+            font-size: 1.2em;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        tbody {
+            display: block;
+            width: 102%;
+            max-height: 245px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        tbody::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        tbody::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 5px;
+        }
+
+        tbody::-webkit-scrollbar-track {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        thead,
+        tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Search Books</h1>
+        <form onsubmit="submitForm(); return false;">
+            <label for="query">Search Book:</label>
+            <input type="text" id="query" required>
+            <button type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.5 17.5L22 22" />
+                    <path
+                        d="M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z" />
+                </svg>
+                
+            </button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Is Available</th>
+                </tr>
+            </thead>
+            <div class="tableContainer">
+                <tbody>
+                    {{range .}}
+                    <tr>
+                        <td>{{ .Name }}</td>
+                        <td>{{ .Author }}</td>
+                        <td>{{ .IsAvail }}</td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </div>
+        </table>
+        <button class="logout-btn" onclick="location.href='/logout'">Logout</button>
+    </div>
+
+
+        <button class="logout-btn" onclick="location.href='/logout'">Logout</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            var query = document.getElementById("query").value.trim();
+            if (query !== "") {
+                window.location.href = "/book/" + encodeURIComponent(query);
+            } else {
+                alert("Please enter a search query.");
+            }
+        }
+    </script>
 </body>
+
 </html>

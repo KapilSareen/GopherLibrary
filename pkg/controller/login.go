@@ -20,6 +20,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	models.Connect()
 
 	Store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_SECRET")))
+    
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
@@ -38,7 +39,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		}
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 
-	case "AdminLogin":
+	case "Login as Admin":
 		user, err := models.Login(name, password)
 		if err != nil {
 			fmt.Fprint(w, "Incorrect name or password")
@@ -65,10 +66,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		fmt.Printf("Admin logged in as %s\n", user.Name)
 		http.Redirect(w, r, "/admin", http.StatusSeeOther)
 
-	case "Login":
+	case "Login as Student":
 		user, err := models.Login(name, password)
 		if err != nil {
 			fmt.Fprint(w, "Incorrect name or password")
@@ -91,8 +91,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			fmt.Print(err.Error())
 			return
 		}
-
-		fmt.Printf("Logged in as %s\n", user.Name)
 		http.Redirect(w, r, "/books", http.StatusSeeOther)
 
 	}

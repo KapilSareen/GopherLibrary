@@ -14,17 +14,20 @@ func Start() {
 	mux.HandleFunc("GET /books", middleware.Auth(controller.ShowBooks))
 	mux.HandleFunc("POST /books", middleware.Auth(controller.AddBook))
 
+	mux.HandleFunc("POST /issue", middleware.Auth(controller.IssueBook))
+	mux.HandleFunc("POST /delete", middleware.Auth(controller.DeleteBook))
+
 	mux.HandleFunc("GET /book/{book}", middleware.Auth(controller.FindBook))
 
 	mux.HandleFunc("GET /login", controller.Login)
 	mux.HandleFunc("POST /login", controller.Login)
-	
+
 	mux.HandleFunc("GET /signup", controller.Login)
 	mux.HandleFunc("POST /signup", controller.Login)
-	
+
 	mux.HandleFunc("GET /admin", middleware.Auth(middleware.IsAdmin(controller.Admin)))
-	
+
 	mux.HandleFunc("GET /logout", controller.Logout)
-	
+
 	http.ListenAndServe(":8001", mux)
 }

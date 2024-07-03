@@ -6,10 +6,10 @@ import (
 	"net/http"
 )
 
-func List(w http.ResponseWriter, r *http.Request)*template.Template {
-    page,err:=template.ParseFiles("templates/books.html")
-	if(err!=nil){
-fmt.Print(err)
+func List(w http.ResponseWriter, r *http.Request) *template.Template {
+	page, err := template.ParseFiles("templates/books.html")
+	if err != nil {
+		fmt.Print(err)
 	}
 	return page
 }

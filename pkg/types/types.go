@@ -8,6 +8,7 @@ type Book struct {
 	OwnedFrom string         `json:"owned_from" db:"owned_from"`
 	IsAvail   bool           `json:"is_avail" db:"is_avail"`
 	Price     float32        `json:"price" db:"price"`
+    Issued_to string          `json:"issued_to" db:"issued_to"`
 }
 
 type Books struct {
