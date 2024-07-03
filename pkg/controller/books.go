@@ -55,6 +55,35 @@ func IssueBook(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/books", http.StatusSeeOther)
 }
 
+func ReceiveBook(w http.ResponseWriter, r *http.Request) {
+
+	models.Connect()
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
+		return
+	}
+	book := r.FormValue("book")
+	received_from := r.FormValue("received_from")
+	UserExist := models.UserExist(received_from)
+	if !UserExist {
+		fmt.Fprint(w, "User does not exists")
+		return
+	}
+	models.Connect()
+	BookAvail := models.BookAvail(book)
+	if BookAvail {
+		fmt.Fprint(w, "Book is already available")
+		return
+	}
+	models.Connect()
+	err := models.Receive(book, received_from)
+	if err != nil {
+		fmt.Fprint(w, "User does not have the book")
+		return
+	}
+	http.Redirect(w, r, "/books", http.StatusSeeOther)
+}
+
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	models.Connect()
 	if err := r.ParseForm(); err != nil {

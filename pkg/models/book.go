@@ -20,6 +20,24 @@ func Issue(book string, username string) {
 	db.Close()
 }
 
+func Receive(book string, username string) error {
+	query := "UPDATE `book` SET issued_to='', is_avail=true WHERE name=? AND issued_to=?"
+	result, err := db.ExecContext(context.Background(), query, book, username)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+	if rowsAffected == 0 {
+		return fmt.Errorf("Error")
+	}
+	db.Close()
+	return nil
+}
+
 func BookAvail(name string) bool {
 	var bookname string
 	if err := db.QueryRow("SELECT name from book where name = ? and is_avail = 1",
@@ -42,7 +60,7 @@ func BookExist(name string) bool {
 
 }
 
-func DeleteBook(book string)  {
+func DeleteBook(book string) {
 	query := "DELETE FROM book WHERE name=?"
 	insertResult, err := db.ExecContext(context.Background(), query, book)
 	if err != nil {
@@ -50,7 +68,7 @@ func DeleteBook(book string)  {
 	}
 	_, err = insertResult.LastInsertId()
 	if err != nil {
-		log.Fatal(err) 
+		log.Fatal(err)
 	}
 	db.Close()
 }
