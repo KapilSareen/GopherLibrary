@@ -4,6 +4,8 @@
 This is a Library Management system built in Golang using the mvc architecture. The website consists of two seperate panels for student and admin. The user can see the existing books in the library and can also search for a specific book.
 
 ![](./img/search.png)
+
+
 The admin can additionally perform these tasks:
 
 - Add a book in the library
@@ -13,6 +15,8 @@ The admin can additionally perform these tasks:
 - Delete a book from library
 
 - Receive a book from a student 
+
+
 ![](./img/admin.png)
 
 
