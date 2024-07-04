@@ -31,6 +31,7 @@ The admin can additionally perform these tasks:
   cp config/example.env .env
 ``` 
 Change the contents on .env according to the requirements specified inside
+`Note: you need to have a same .env file inside the tests folder too for tests to work`
 
 
 #### Mysql Setup
