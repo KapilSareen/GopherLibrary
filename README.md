@@ -45,7 +45,7 @@ Change the contents on .env according to the requirements specified inside
 
 - Install apache2 if not installed already
 
-- Copy and paste the sample vhost file given in config/ to `/etc/apache2/sites-available`
+- Copy and paste the sample vhost file given in config/ to `/etc/apache2/sites-available` with the name `go.gopherlibrary.local.config`
 
 - Now run these commands in the terminal:
 
