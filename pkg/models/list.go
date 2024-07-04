@@ -16,7 +16,7 @@ func ListBooks() ([]types.Book, error) {
 	for rows.Next() {
 		var book types.Book
 		if err := rows.Scan(&book.ID, &book.Name, &book.Author,
-			&book.OwnedFrom, &book.IsAvail, &book.Price, &book.Issued_to ); err != nil {
+			&book.OwnedFrom, &book.IsAvail, &book.Issued_to,&book.Price  ); err != nil {
 			return books, err
 		}
 		books = append(books, book)
@@ -37,7 +37,7 @@ func SearchBook(name string) ([]types.Book, error) {
 	defer rows.Close()
 	for rows.Next() {
 		var book types.Book
-		if err := rows.Scan(&book.ID, &book.Name, &book.Author, &book.OwnedFrom, &book.IsAvail, &book.Price, &book.Issued_to); err != nil {
+		if err := rows.Scan(&book.ID, &book.Name, &book.Author, &book.OwnedFrom, &book.IsAvail, &book.Issued_to, &book.Price); err != nil {
 			return nil, err
 		}
 		books = append(books, book)
