@@ -97,6 +97,6 @@ func DeleteBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	models.Connect()
-	models.DeleteBook(book)
+	_=models.DeleteBook(book)
 	http.Redirect(w, r, "/books", http.StatusSeeOther)
 }

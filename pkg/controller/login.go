@@ -12,12 +12,13 @@ import (
 var Store *sessions.CookieStore
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
+	if r.Method == "GET" {
 		views.Login(w, r)
 		return
 	}
 
 	models.Connect()
+
 
 	Store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_SECRET")))
     
@@ -61,6 +62,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		session.Values["user"] = user.Name
 		session.Values["password"] = user.Password
 		session.Values["isAdmin"] = user.IsAdmin
+		session.Options = &sessions.Options{
+			Domain:   "go.gopherlibrary.local", // Adjust domain as per your setup
+			Path:     "/",                      // Ensure path is set to root
+			MaxAge:   3600,
+			HttpOnly: true,
+		}
 		err = session.Save(r, w)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -84,6 +91,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		session.Values["user"] = user.Name
 		session.Values["password"] = user.Password
 		session.Values["isAdmin"] = user.IsAdmin
+		session.Options = &sessions.Options{
+			Domain:   "go.gopherlibrary.local", // Adjust domain as per your setup
+			Path:     "/",                      // Ensure path is set to root
+			MaxAge:   3600,
+			HttpOnly: true,
+		}
 
 		err = session.Save(r, w)
 		if err != nil {

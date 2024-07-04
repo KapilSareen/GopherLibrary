@@ -60,15 +60,18 @@ func BookExist(name string) bool {
 
 }
 
-func DeleteBook(book string) {
+func DeleteBook(book string) error{
 	query := "DELETE FROM book WHERE name=?"
 	insertResult, err := db.ExecContext(context.Background(), query, book)
 	if err != nil {
 		log.Fatal(err)
+	    return err
 	}
 	_, err = insertResult.LastInsertId()
 	if err != nil {
 		log.Fatal(err)
+		return err
 	}
 	db.Close()
+	return nil
 }

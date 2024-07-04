@@ -7,6 +7,6 @@ import (
 
  func main(){
     fmt.Println("Loading...")
-	fmt.Println("Listening on http://localhost:8001/")
+	fmt.Println("Listening on http://localhost:8000/")
 	api.Start()
 }
