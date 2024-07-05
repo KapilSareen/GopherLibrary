@@ -16,12 +16,33 @@ The admin can additionally perform these tasks:
 
 - Receive a book from a student 
 
+admin creds: `admin:admin`
 
 ![](./img/admin.png)
 
 
+## Local setup (with docker) 
 
-##  Local Setup
+#### (Tests and migrations won't work on this method)
+
+To start run the following commands:
+```bash
+
+ cp config/example.env .env
+ docker-compose build
+ docker-compose  up 
+
+```
+
+To stop run this command:
+
+```bash
+  docker-compose down 
+```
+
+
+
+##  Local Setup (Without docker)
 
 #### Go Project setup
 - Run the following commands in terminal:

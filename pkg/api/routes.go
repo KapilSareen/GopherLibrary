@@ -30,5 +30,5 @@ func Start() {
 
 	mux.HandleFunc("GET /logout", controller.Logout)
 
-	http.ListenAndServe(":8000", mux)
+	http.ListenAndServe(":8001", mux)
 }

@@ -2,8 +2,8 @@
         ServerName go.gopherlibrary.local
         ServerAdmin example@example.com  <-- change to your email id
         ProxyPreserveHost On
-        ProxyPass / http://127.0.0.1:8000/
-        ProxyPassReverse / http://127.0.0.1:8000/
+        ProxyPass / http://127.0.0.1:8001/
+        ProxyPassReverse / http://127.0.0.1:8001/
         ProxyPassReverseCookiePath /login /
         ProxyPassReverseCookieDomain localhost go.gopherlibrary.local
         RequestHeader set X-Forwarded-Proto "http"

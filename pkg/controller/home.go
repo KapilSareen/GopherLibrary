@@ -7,9 +7,5 @@ import (
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-        views.ErrorPage(w,r)
-		return
-	}
 	views.Home(w, r)
 }

@@ -18,11 +18,11 @@ func Connect() {
 		log.Fatal(err)
 	}
 	cfg := mysql.Config{
-		User:   os.Getenv("MYSQL_USERNAME"),
-		Passwd: os.Getenv("MYSQL_PASSWORD"),
+		User:   os.Getenv("DATABASE_USERNAME"),
+		Passwd: os.Getenv("DATABASE_PASSWORD"),
 		Net:    "tcp",
 		Addr:   os.Getenv("URL"),
-		DBName: os.Getenv("DATABASE"),
+		DBName: os.Getenv("DATABASE_NAME"),
 	}
 
 	db, err = sql.Open("mysql", strings.Split(cfg.FormatDSN(), "?")[0])
